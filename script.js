@@ -19,6 +19,16 @@ const key3 = document.getElementById('key3');
 const audioprova= new Tone.Player("https://tonejs.github.io/audio/berklee/gong_1.mp3").toDestination();
 
 
+var sampler = new Tone.Sampler({
+	"C5" : "Violin_C5.mp3"
+}).toDestination();
+
+
+
+
+
+// const shift_1=new PitchShift
+
 // // Song titles
 // const songs = ['Algorithm', 'summer', 'ukulele'];
 
@@ -28,14 +38,14 @@ const audioprova= new Tone.Player("https://tonejs.github.io/audio/berklee/gong_1
 // // Initially load song details into DOM
 // loadSong(songs[songIndex]);
 
-function playSound(){
+function playSound(l){
     keyboard.classList.add('play');
-    audioprova.start();
+    sampler.triggerAttack(l);
 }
 
-function pauseSound(){
+function pauseSound(l){
     keyboard.classList.remove('play');
-    audioprova.stop();
+    sampler.triggerRelease(l);
 }
 
 // Update song details
@@ -62,11 +72,39 @@ function pauseSound(){
 //   }
 
   // Event listeners
-key1.addEventListener('click', () => {
+let keys = [];
+let keyNote=['C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5', 'C6'];
+
+for(let i=0; i<8; i++){
+  e=document.createElement("button");
+  e.classList.add("key");
+  label=document.createElement("h2");
+  label.textContent=keyNote[i];
+  e.append(label);
+  keyboard.append(e);
+  keys.push(e);
+} 
+
+
+keys.forEach(element =>{
+  element.onclick=function(){
+    let lab = element.getElementsByTagName('h2')[0].innerText;
     const isPlaying = keyboard.classList.contains('play')
-  
+    console.log(lab);
     if (isPlaying) {
-      pauseSound();
+      pauseSound(lab);
     } else {
-      playSound();
-  }});
+      playSound(lab);
+    }
+  }
+});
+
+
+// key1.addEventListener('click', () => {
+//     const isPlaying = keyboard.classList.contains('play')
+  
+//     if (isPlaying) {
+//       pauseSound();
+//     } else {
+//       playSound();
+//   }});
