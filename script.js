@@ -1,4 +1,5 @@
 
+
 const keyboard = document.getElementById('keyboard');
 const key1 = document.getElementById('key1');
 const key2 = document.getElementById('key2');
