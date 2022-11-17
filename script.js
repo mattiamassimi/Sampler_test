@@ -10,33 +10,38 @@ var sampler = new Tone.Sampler({
 
 //Play & stop functions
 function playSound(l){
-    //keyboard.classList.add('play');
+
     sampler.triggerAttack(l);
 }
 
 function stopSound(l){
-    //keyboard.classList.remove('play');
+
     sampler.triggerRelease(l);
 }
 
 
 //Button and label creation
 let keys = [];
-let keyNote=['C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5', 'C6'];
-
-for(let i=0; i<keyNote.length; i++){
-  e=document.createElement("button");
-  e.classList.add("key");
-  label=document.createElement("h2");
-  label.textContent=keyNote[i];
-  e.append(label);
-  keyboard.append(e);
-  keys.push(e);
+let keyNote=['C', 'D', 'E', 'F', 'G', 'A', 'B'];
+for(let i=4; i<6; i++){
+  for(let j=0; j<keyNote.length; j++){
+    e=document.createElement("button");
+    e.classList.add("key");
+    label=document.createElement("h2");
+    label.textContent=keyNote[j]+i.toString();
+    e.append(label);
+    keyboard.append(e);
+    keys.push(e);
+  }
 } 
 
 
 //provare polifonia
 //mettere keyboard control
+//collegamento active button css
+//ADSR
+//Quanti sample utilizzare per avere un buon risutato (1 ogni tono?)
+//switch tra strumenti
 
 
 // listener
@@ -45,7 +50,6 @@ keys.forEach(element =>
   element.onmousedown=function()
   { 
     let note = element.getElementsByTagName('h2')[0].innerText;
-    //const isPlaying = keyboard.classList.contains('play')
     
     playSound(note);
 
@@ -60,5 +64,5 @@ keys.forEach(element =>
 //   console.log(key);
 
 //   })
-//b=document.getElementsByTagName("button");
-//console.log(b);
+// b=document.getElementsByTagName("button");
+//b.classList.add("active")
